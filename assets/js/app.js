@@ -22,14 +22,14 @@ var chart = svgWrapper.append("g")
 var xAxis = "income";
 var yAxis = "smokes";
 
-function xScale(getdata, xAxis) {
+function xScale(getdata) {
     var xLinearScale = d3.scaleLinear()
         .domain([0, d3.max(getdata, d=> d.income)])
         .range([0, width]);
     return xLinearScale;
 }
 
-function yScale(getdata, yAxis) {
+function yScale(getdata) {
     var yLinearScale = d3.scaleLinear()
         .domain([0, d3.max(getdata, d => d.smokes)])
         .range([height, 0]);
@@ -125,7 +125,6 @@ d3.csv("assets/data/data.csv").then(function(getdata) {
         data.income = +data.income;
         data.smokes = +data.smokes;
         data.obesity = +data.obesity;
-            // console.log(data.poverty)
     });
 
 
@@ -168,27 +167,12 @@ d3.csv("assets/data/data.csv").then(function(getdata) {
     var xLabels = chart.append("g")
         .attr("transform", `translate(${width / 2}, ${height + 20})`);
 
-
-    // var povertyLabel = xLabels.append("text")
-    //     .attr("x", 0)
-    //     .attr("y", 20)
-    //     .attr("value", "poverty")
-    //     .classed("active", true)
-    //     .text("Poverty (%)");
-
     var incomeLabel = xLabels.append("text")
         .attr("x", 0)
         .attr("y", 60)
         .attr("value", "income")
         .classed("active", true)
         .text("Income (Median)");
-
-    var povertyLabel = xLabels.append("text")
-        .attr("x", 0)
-        .attr("y", 20)
-        .attr("value", "poverty")
-        .classed("inactive", true)
-        .text("Poverty (%)");
 
     var yLabels = chart.append("g")
         .attr("transform", `translate(-25, ${height / 2})`);
